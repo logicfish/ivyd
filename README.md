@@ -14,3 +14,21 @@ invokation. These are converted into a tuple of matching rules, and we can add o
 Channel inputs are tuple patterns which evoke signals on concurrent processing fibres. The fibres 
 are created by the Stack and when an input event becomes available, each matching fibre receives a
 message containing the input value or state from the channel.
+
+The stack also maintains a concurrent "Environment" which is local to a fiber, and provides a means of 
+accessing global state data. The enviroment is constant during the executuion of a particular fiber but may
+be modified during a yield state.
+And to a custom fiber function, the Environment is the only parameter supplied by a stack. 
+The input and output vectors are bound to the environment context.
+
+Each output is bound to a function, and the stack can implement a default output funtion that indexes a table of 
+instance bindings and works as a pipe, sending an input message to a different substrate.
+
+Examples
+
+Generic CRUD bindings. This example creates a set of bindings that can attach to a webserver object of some type to
+perform the routing of crud requests.
+
+Non-blocking server stack
+Configurable assets that implement a TCP / HTTP stack which is configurable to use various types of socket.
+
